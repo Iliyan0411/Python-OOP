@@ -1,5 +1,5 @@
 import sys
-from notebook import Note, Notebook
+from Notebook.notebook import Note, Notebook
 
 class Menu:
     def __init__(self):
