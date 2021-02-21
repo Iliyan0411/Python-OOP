@@ -33,9 +33,3 @@ class Agent:
 
         init_args = PropertyClass.prompt_init()
         self.property_list.append(PropertyClass(**init_args))
-
-
-agent = Agent()
-agent.add_property()
-# agent.add_property()
-agent.display_properties()

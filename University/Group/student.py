@@ -4,8 +4,10 @@ class Student:
         self.fn = fn
         self.grade = grade
 
+
     def print_student(self):
         print(f'{self.name}\t{self.fn}\t{self.grade}')
+
 
     def good_student(self):
         return self.grade >= 3
