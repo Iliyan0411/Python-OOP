@@ -46,41 +46,70 @@ class Deck:
 ###########################################################
 
 class BuildDeck:
-    def create_deck(self, default=True):
+    def create_deck(self, default: bool, deck_id="Custom", size=52):
         deck = []
 
         if default:
-            deck_id = self.__generate_id("Default")
-            curr = 0
-
-            for i in range(13):
-                if i + 2 <= 10:
-                    deck.append(Card(0, i+2, deck_id[curr]))
-                    deck.append(Card(1, i+2, deck_id[curr+1]))
-                    deck.append(Card(2, i+2, deck_id[curr+2]))
-                    deck.append(Card(3, i+2, deck_id[curr+3]))
-                elif i != 12:
-                    deck.append(Card(0, 10, deck_id[curr]))
-                    deck.append(Card(1, 10, deck_id[curr+1]))
-                    deck.append(Card(2, 10, deck_id[curr+2]))
-                    deck.append(Card(3, 10, deck_id[curr+3]))
-                else:
-                    deck.append(Card(0, 11, deck_id[curr]))
-                    deck.append(Card(1, 11, deck_id[curr+1]))
-                    deck.append(Card(2, 11, deck_id[curr+2]))
-                    deck.append(Card(3, 11, deck_id[curr+3]))
-                curr += 4
+            deck = self.__default_deck("Default")
         else:
-            #.......#
-            pass
-        
+            remaining = size % 52
+            def_decks = int(size / 52)
 
-    def __generate_id(self, prefix):
+            for _ in range(def_decks):
+                deck += self.__default_deck(deck_id)
+
+            deck += self.__spec_deck(deck_id, remaining) 
+
+        return deck
+
+
+    def __default_deck(self, deck_id="Custom"):
+        id = self.__generate_id(deck_id)
+        curr = 0
+        deck = []
+
+        for i in range(13):
+            power = 0
+            
+            if i + 2 <= 10:
+                power = i + 2
+            elif i != 12:
+                power = 10
+            else:
+                power = 11
+
+            deck.append(Card(0, power, id[curr]))
+            deck.append(Card(1, power, id[curr+1]))
+            deck.append(Card(2, power, id[curr+2]))
+            deck.append(Card(3, power, id[curr+3]))
+            curr += 4
+
+        return deck
+
+
+    def __spec_deck(self, deck_id, size):
+        id = self.__generate_id(deck_id, size)
+        deck = []
+        added = {}
+
+        i = 0
+        while i < size:
+            power = int(random.random()*10 + 2)
+            suit = int(random.random()*4)
+
+            if not (suit, power) in added:
+                deck.append(Card(suit, power, id[i]))
+                i += 1
+                added[(suit, power)] = None
+
+        return deck
+
+
+    def __generate_id(self, prefix, size=52):
         id = [prefix for _ in range(52)]
         length = 15 - len(prefix)
 
-        for i in range(52):
-            id[i] = "prefix"
+        for i in range(size):
             for j in range(length):
                 id[i] += chr(int(random.random()*26 + 97))
 
