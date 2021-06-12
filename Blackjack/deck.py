@@ -106,7 +106,7 @@ class BuildDeck:
 
 
     def __generate_id(self, prefix, size=52):
-        id = [prefix for _ in range(52)]
+        id = [prefix for _ in range(size)]
         length = 15 - len(prefix)
 
         for i in range(size):
