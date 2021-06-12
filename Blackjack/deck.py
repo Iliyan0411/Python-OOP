@@ -35,8 +35,10 @@ class Deck:
 
     
     def stir(self):
+        stirs = int(len(self.cards) / 2)
         bottom = len(self.cards)
-        for _ in range(17):
+        
+        for _ in range(stirs):
             pos_1 = int(random.random()*bottom)
             pos_2 = int(random.random()*bottom)
 
@@ -78,10 +80,9 @@ class BuildDeck:
             else:
                 power = 11
 
-            deck += Card(0, power, id[curr]))
-            deck += Card(1, power, id[curr+1]))
-            deck += Card(2, power, id[curr+2]))
-            deck += Card(3, power, id[curr+3]))
+            for j in range(4):
+                deck.append(Card(j, power, id[curr+j]))
+
             curr += 4
 
         return deck
@@ -98,7 +99,7 @@ class BuildDeck:
             suit = int(random.random()*4)
 
             if not (suit, power) in added:
-                deck += Card(suit, power, id[i]))
+                deck.append(Card(suit, power, id[i]))
                 i += 1
                 added[(suit, power)] = None
 

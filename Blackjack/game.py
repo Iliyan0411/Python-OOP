@@ -1,6 +1,5 @@
 from player import Player
 from deck import Deck, BuildDeck
-from card import Card
 
 
 class Blackjack:
@@ -50,6 +49,8 @@ class Blackjack:
 
                 if self.player.points > 21:
                     return False
+                if self.player.points == 21:
+                    return True
             else:
                 break
 
@@ -68,6 +69,7 @@ class Blackjack:
                 dealer_points += card.value
                         
             if dealer_points > 21:
+                print(dealer_points)
                 return True
 
         print(dealer_points)
@@ -88,4 +90,4 @@ class Blackjack:
 # if result:
 #     print("You win!")
 # else:
-#     print("You lose!")
+#     print("You lose")
