@@ -78,10 +78,10 @@ class BuildDeck:
             else:
                 power = 11
 
-            deck.append(Card(0, power, id[curr]))
-            deck.append(Card(1, power, id[curr+1]))
-            deck.append(Card(2, power, id[curr+2]))
-            deck.append(Card(3, power, id[curr+3]))
+            deck += Card(0, power, id[curr]))
+            deck += Card(1, power, id[curr+1]))
+            deck += Card(2, power, id[curr+2]))
+            deck += Card(3, power, id[curr+3]))
             curr += 4
 
         return deck
@@ -98,7 +98,7 @@ class BuildDeck:
             suit = int(random.random()*4)
 
             if not (suit, power) in added:
-                deck.append(Card(suit, power, id[i]))
+                deck += Card(suit, power, id[i]))
                 i += 1
                 added[(suit, power)] = None
 
