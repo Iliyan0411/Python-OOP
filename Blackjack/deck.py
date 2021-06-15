@@ -3,9 +3,8 @@ import random
 
 
 class Deck:
-    def __init__(self, cards, deck_id="Custom"):
+    def __init__(self, cards):
         self.cards = cards
-        self.deck_id = deck_id
 
 
     def draw(self):
@@ -48,25 +47,24 @@ class Deck:
 ###########################################################
 
 class BuildDeck:
-    def create_deck(self, default: bool, deck_id="Custom", size=52):
+    def create_deck(self, default: bool, size=52):
         deck = []
 
         if default:
-            deck = self.__default_deck("Default")
+            deck = self.__default_deck()
         else:
             remaining = size % 52
             def_decks = int(size / 52)
 
             for _ in range(def_decks):
-                deck += self.__default_deck(deck_id)
+                deck += self.__default_deck()
 
-            deck += self.__spec_deck(deck_id, remaining) 
+            deck += self.__spec_deck(remaining) 
 
         return deck
 
 
-    def __default_deck(self, deck_id="Custom"):
-        id = self.__generate_id(deck_id)
+    def __default_deck(self):
         curr = 0
         deck = []
 
@@ -81,15 +79,13 @@ class BuildDeck:
                 power = 11
 
             for j in range(4):
-                deck.append(Card(j, power, id[curr+j]))
-
+                deck.append(Card(j, power))
             curr += 4
 
         return deck
 
 
-    def __spec_deck(self, deck_id, size):
-        id = self.__generate_id(deck_id, size)
+    def __spec_deck(self, size):
         deck = []
         added = {}
 
@@ -99,19 +95,8 @@ class BuildDeck:
             suit = int(random.random()*4)
 
             if not (suit, power) in added:
-                deck.append(Card(suit, power, id[i]))
+                deck.append(Card(suit, power))
                 i += 1
                 added[(suit, power)] = None
 
         return deck
-
-
-    def __generate_id(self, prefix, size=52):
-        id = [prefix for _ in range(size)]
-        length = 15 - len(prefix)
-
-        for i in range(size):
-            for j in range(length):
-                id[i] += chr(int(random.random()*26 + 97))
-
-        return id

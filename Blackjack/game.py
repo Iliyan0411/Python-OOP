@@ -1,5 +1,6 @@
 from player import Player
 from deck import Deck, BuildDeck
+from time import sleep
 
 
 class Blackjack:
@@ -57,6 +58,7 @@ class Blackjack:
         dealer_points = 0
         while dealer_points < 17:
             card = self.deck.draw()
+            sleep(0.5)
             
             self.draw_count += 1
             if self.draw_count > 30:
@@ -68,26 +70,9 @@ class Blackjack:
             else:
                 dealer_points += card.value
                         
+            print(dealer_points)
+
             if dealer_points > 21:
-                print(dealer_points)
                 return True
 
-        print(dealer_points)
         return self.player.points >= dealer_points
-
-
-
-###############################################
-# deck_creator = BuildDeck()
-# my_deck = deck_creator.create_deck(True)
-# deck = Deck(my_deck)
-# deck.stir()
-
-
-# BJ = Blackjack(Player("Iliyan", 20, 2, 5), deck)
-# result = BJ.action()
-
-# if result:
-#     print("You win!")
-# else:
-#     print("You lose")
