@@ -1,7 +1,7 @@
 from game import Blackjack
 from deck import BuildDeck
-import sys
-import time
+from sys import exit
+from time import sleep
 
 
 class Menu:
@@ -42,8 +42,8 @@ class Menu:
 
     def quit(self):
         print("Thank you for playing Blackjack!")
-        time.sleep(2)
-        sys.exit(0)
+        sleep(2)
+        exit(0)
 
 
     def info(self):
@@ -54,4 +54,5 @@ class Menu:
         self.BJ.action()
 
 
-    
+    def register(self):
+        pass
