@@ -1,3 +1,4 @@
+
 class Card:
     def __init__(self, kind: int, suit: int, value: int):
         self.kind = kind

@@ -1,8 +1,10 @@
-from game import Blackjack
 from deck import BuildDeck
-from player import Player
+from game import Blackjack
+from verification import Registration
+from user_tree import UserTree
 from sys import exit
 from time import sleep
+import pickle
 
 
 class Menu:
@@ -10,16 +12,15 @@ class Menu:
         self.BJ = Blackjack(None, None)
 
         self.login_options = {
-            1: self.register,
+            1: self.registration,
             2: self.sign_in,
             3: self.quit
         }
         self.game_options = {
             1: self.play,
             2: self.info,
-            3: self.sign_out,
-            4: self.delete_account,
-            5: self.quit
+            3: self.delete_account,
+            4: self.quit
         }
 
 
@@ -43,7 +44,7 @@ class Menu:
 
     def quit(self):
         print("Thank you for playing Blackjack!")
-        sleep(2)
+        sleep(1)
         exit(0)
 
 
@@ -52,83 +53,36 @@ class Menu:
 
     
     def play(self):
+        while True:
+            try:
+                deck_num = int(input("Select number of decks[1-6]: "))
+                if deck_num < 1 or deck_num > 6:
+                    raise ValueError("Invalid number of decks.")
+            except ValueError:
+                print("Numbers of decks must be between 1 and 6.")
+                continue
+            except Exception:
+                print("Something went wrong.")
+                continue
+            else:
+                self.BJ.deck = BuildDeck().create_deck(deck_num)
+                break
+
         self.BJ.action()
 
 
-    def __secured_password(self, password):
-        bigch, smallch = 0, 0
-        for c in password:
-            if ord(c) >= 65 and ord(c) <= 90:
-                bigch += 1
-            if ord(c) >= 97 and ord(c) <= 122:
-                smallch += 1
-        
-        return bigch >= 2 and smallch >= 2
+    def registration(self):
+        self.BJ.player = Registration().create_registration()
 
 
-    def __user_details(self):
-        username, age, password = None, None, None
+    def delete_account(self):
+        users_file = open("users.bin", "rb")
+        us_tree: UserTree()
+        us_tree = pickle.load(users_file)
+        users_file.close()
 
-        while True:
-            try:
-                username = input("Username: ")
-                if len(username) > 15:
-                    raise ValueError("Too long username.")
-            except ValueError:
-                print("Please, enter shorter username.")
-                continue
-            except Exception:
-                print("Something went wrong.")
-                continue
-            else:
-                break
-        
-        while True:
-            try:
-                age = int(input("Age: "))
-                if age < 18 or age > 90:
-                    raise ValueError("You are too young/old.")
-            except ValueError:
-                print("Please, enter valid age.")
-                continue
-            except Exception:
-                print("Something went wrong.")
-                continue
-            else:
-                break
+        us_tree.remove(self.BJ.player)
 
-        while True:
-            try:
-                password = input("Enter password: ")
-
-                if len(password) < 8 or len(password) > 15:
-                    raise OverflowError("Wrong length of password.")
-                if not self.__secured_password(password):
-                    raise ValueError("Your password is not secured.")
-
-            except OverflowError:
-                print("Please, enter password with length between 8 and 15 symbols.")
-                continue
-            except ValueError:
-                print("Please, enter password, which contains least 2 big and 2 small letters.")
-                continue
-            else:
-                break
-
-        return username, age, password
-
-
-    def __create_userfile(self, username):
-        try:
-            users = open("users.txt", "a")
-        except Exception:
-            print("Problem with <users.txt>.")
-            exit(-1)
-
-        users.write("{0}".format(username))
-        users.close()
-
-        
-    def register(self):
-        username, age, password = self.__user_details()
-        self.__create_userfile(username)
+        users_file = open("users.bin", "wb")
+        pickle.dump(us_tree, users_file)
+        users_file.close()

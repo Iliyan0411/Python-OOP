@@ -1,5 +1,5 @@
 from player import Player
-from deck import Deck, BuildDeck
+from deck import Deck
 from time import sleep
 
 

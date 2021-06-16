@@ -1,5 +1,5 @@
 from card import Card
-import random
+from random import random
 
 
 class Deck:
@@ -38,8 +38,8 @@ class Deck:
         bottom = len(self.cards)
         
         for _ in range(stirs):
-            pos_1 = int(random.random()*bottom)
-            pos_2 = int(random.random()*bottom)
+            pos_1 = int(random()*bottom)
+            pos_2 = int(random()*bottom)
 
             if pos_1 != pos_2:
                 self.swap(pos_1, pos_2)
