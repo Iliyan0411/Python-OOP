@@ -87,7 +87,7 @@ class Menu:
             try:
                 age = int(input("Age: "))
                 if age < 18 or age > 90:
-                    raise ValueError("You are too young or too old.")
+                    raise ValueError("You are too young/old.")
             except ValueError:
                 print("Please, enter valid age.")
                 continue
@@ -100,15 +100,17 @@ class Menu:
         while True:
             try:
                 password = input("Enter password: ")
+
                 if len(password) < 8 or len(password) > 15:
                     raise OverflowError("Wrong length of password.")
                 if not self.__secured_password(password):
                     raise ValueError("Your password is not secured.")
+
             except OverflowError:
-                print("Please, enter password with correct length.")
+                print("Please, enter password with length between 8 and 15 symbols.")
                 continue
             except ValueError:
-                print("Please, enter password, which contains Big and small characters.")
+                print("Please, enter password, which contains least 2 big and 2 small letters.")
                 continue
             else:
                 break
@@ -116,18 +118,17 @@ class Menu:
         return username, age, password
 
 
-    def __create_userfile(self, username, password):
+    def __create_userfile(self, username):
         try:
             users = open("users.txt", "a")
         except Exception:
             print("Problem with <users.txt>.")
             exit(-1)
 
-        users.write("{0} {1}".format(username, password))
-
+        users.write("{0}".format(username))
         users.close()
 
-
+        
     def register(self):
         username, age, password = self.__user_details()
-        self.__create_userfile(username, password)
+        self.__create_userfile(username)

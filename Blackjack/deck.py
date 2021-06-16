@@ -47,25 +47,15 @@ class Deck:
 ###########################################################
 
 class BuildDeck:
-    def create_deck(self, default: bool, size=52):
+    def create_deck(self, decks=1):
         deck = []
-
-        if default:
-            deck = self.__default_deck()
-        else:
-            remaining = size % 52
-            def_decks = int(size / 52)
-
-            for _ in range(def_decks):
-                deck += self.__default_deck()
-
-            deck += self.__spec_deck(remaining) 
+        for _ in range(decks):
+            deck += self.__default_deck() 
 
         return deck
 
 
     def __default_deck(self):
-        curr = 0
         deck = []
 
         for i in range(13):
@@ -79,24 +69,6 @@ class BuildDeck:
                 power = 11
 
             for j in range(4):
-                deck.append(Card(j, power))
-            curr += 4
-
-        return deck
-
-
-    def __spec_deck(self, size):
-        deck = []
-        added = {}
-
-        i = 0
-        while i < size:
-            power = int(random.random()*10 + 2)
-            suit = int(random.random()*4)
-
-            if not (suit, power) in added:
-                deck.append(Card(suit, power))
-                i += 1
-                added[(suit, power)] = None
+                deck.append(Card(i, j, power))
 
         return deck
