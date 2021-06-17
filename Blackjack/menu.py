@@ -1,6 +1,6 @@
 from deck import BuildDeck
 from game import Blackjack
-from verification import Registration
+from verification import Registration, SignIn
 from user_tree import UserTree
 from sys import exit
 from time import sleep
@@ -86,3 +86,7 @@ class Menu:
         users_file = open("users.bin", "wb")
         pickle.dump(us_tree, users_file)
         users_file.close()
+
+    
+    def sign_in(self):
+        self.BJ.player = SignIn().make_sign_in()
