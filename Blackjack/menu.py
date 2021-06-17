@@ -1,10 +1,8 @@
 from deck import BuildDeck
 from game import Blackjack
-from verification import Registration, SignIn
-from user_tree import UserTree
+from accounts import Registration, SignIn, DeleteAccount
 from sys import exit
 from time import sleep
-import pickle
 
 
 class Menu:
@@ -76,16 +74,7 @@ class Menu:
 
 
     def delete_account(self):
-        users_file = open("users.bin", "rb")
-        us_tree: UserTree()
-        us_tree = pickle.load(users_file)
-        users_file.close()
-
-        us_tree.remove(self.BJ.player)
-
-        users_file = open("users.bin", "wb")
-        pickle.dump(us_tree, users_file)
-        users_file.close()
+        DeleteAccount().delete_acc(self.BJ.player.username)
 
     
     def sign_in(self):
