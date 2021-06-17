@@ -54,7 +54,6 @@ class Registration(Verification):
         new_user = Player(username, age, password)
         
         users_file = open("users.bin", "rb")
-        us_tree = UserTree()
         us_tree = pickle.load(users_file)
         users_file.close()
 
@@ -106,7 +105,6 @@ class SignIn(Verification):
     def make_sign_in(self):
 
         users_file = open("users.bin", "rb")
-        us_tree = UserTree()
         us_tree = pickle.load(users_file)
         users_file.close()
 
