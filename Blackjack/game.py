@@ -18,10 +18,8 @@ class Blackjack:
                     raise ValueError
             except ValueError:
                 print("# Invalid choice.")
-                continue
             except TypeError:
                 print("# Invalid input")
-                continue
             else:
                 return choice
 

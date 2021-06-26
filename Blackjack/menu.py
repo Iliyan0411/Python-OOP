@@ -58,10 +58,8 @@ class Menu:
                     raise ValueError("Invalid number of decks.")
             except ValueError:
                 print("Numbers of decks must be between 1 and 6.")
-                continue
             except Exception:
                 print("Something went wrong.")
-                continue
             else:
                 self.BJ.deck = BuildDeck().create_deck(deck_num)
                 break

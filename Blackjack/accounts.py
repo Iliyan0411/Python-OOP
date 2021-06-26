@@ -12,10 +12,8 @@ class Verification:
                     raise ValueError("Too long username.")
             except ValueError:
                 print("Please, enter shorter username.")
-                continue
             except Exception:
                 print("Something went wrong.")
-                continue
             else:
                 return username
 
@@ -28,10 +26,8 @@ class Verification:
                     raise OverflowError("Wrong length of password.")
             except OverflowError:
                 print("Please, enter password with length between 8 and 15 symbols.")
-                continue
             except Exception:
                 print("Something went wrong.")
-                continue
             else:
                 return password
 
@@ -46,9 +42,7 @@ class Registration(Verification):
         while True:
             password = super()._password_input()
 
-            if not self._secured_password(password):
-                continue
-            else:
+            if self._secured_password(password):
                 break
 
         new_user = Player(username, age, password)
@@ -85,10 +79,8 @@ class Registration(Verification):
                     raise ValueError("You are too young/old.")
             except ValueError:
                 print("Please, enter valid age.")
-                continue
             except Exception:
                 print("Something went wrong.")
-                continue
             else:
                 return age
 
@@ -120,17 +112,14 @@ class SignIn(Verification):
                     raise WrongPassword("Wrong password.")
             except WrongUsername:
                 print("Please, enter correct username.")
-                continue
             except WrongPassword:
                 print("Please, enter correct password.")
-                continue
             else:
                 break
 
         
         user = us_tree.locate(username)
         return user
-
 
 
 class DeleteAccount:
