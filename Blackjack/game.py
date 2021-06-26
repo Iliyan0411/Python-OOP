@@ -44,7 +44,8 @@ class Blackjack:
                 else:
                     self.player.points += card.value
 
-                print(self.player.points)
+                card.print()
+                print("  -->  {0}".format(self.player.points))
 
                 if self.player.points > 21:
                     self.player.points = 0
@@ -62,15 +63,16 @@ class Blackjack:
             
             self.draw_count += 1
             if self.draw_count > len(self.deck.cards) - 20:
-                    self.deck.stir()
-                    self.draw_count = 0
+                self.deck.stir()
+                self.draw_count = 0
 
             if card.kind == 12 and card.value + dealer_points > 21:
-                    dealer_points += 1
+                dealer_points += 1
             else:
                 dealer_points += card.value
-                        
-            print(dealer_points)
+
+            card.print()
+            print("  -->  {0}".format(dealer_points))
 
             if dealer_points > 21:
                 self.player.points = 0
@@ -81,4 +83,5 @@ class Blackjack:
 
         player_points = self.player.points
         self.player.points = 0
+
         return player_points >= dealer_points

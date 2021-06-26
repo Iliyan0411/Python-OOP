@@ -19,10 +19,10 @@ class Card:
             print("A", end="")
 
         if self.suit == 0:
-            print("\u2660")
+            print("\u2660", end="")
         elif self.suit == 1:
-            print("\u2661")
+            print("\u2661", end="")
         elif self.suit == 2:
-            print("\u2662")
+            print("\u2662", end="")
         elif self.suit == 3:
-            print("\u2663")
+            print("\u2663", end="")
