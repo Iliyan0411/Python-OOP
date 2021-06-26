@@ -4,6 +4,7 @@ class Player:
         self.username = username
         self.age = age
         self.wins = 0
+        self.password = password
         self.games = 0
         self.points = 0
 

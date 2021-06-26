@@ -40,23 +40,3 @@ class UserTree:
 
         for child in curr_node.children:
             self._print(curr_node.children[child])
-
-
-
-# p1 = Player("Iliyan", 20, "dth")
-# p2 = Player("Ivan", 20, "dth")
-# p3 = Player("Niki", 20, "dth")
-# p4 = Player("Spasi", 20, "dth")
-# p5 = Player("Lusi", 20, "dth")
-# p6 = Player("Asen", 20, "dth")
-
-# ut = UserTree()
-
-# ut.add(p1)
-# ut.add(p2)
-# ut.add(p3)
-# ut.add(p4)
-# ut.add(p5)
-# ut.add(p6)
-
-# ut.print()

@@ -1,4 +1,5 @@
-from deck import BuildDeck
+from player import Player
+from deck import BuildDeck, Deck
 from game import Blackjack
 from accounts import Registration, SignIn, DeleteAccount
 from sys import exit
