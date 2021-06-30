@@ -1,7 +1,7 @@
 from player import Player
 from deck import BuildDeck, Deck
 from game import Blackjack
-from accounts import Registration, SignIn, DeleteAccount
+from accounts import Registration, SignIn, Account
 from sys import exit
 from time import sleep
 
@@ -18,9 +18,32 @@ class Menu:
         self.game_options = {
             1: self.play,
             2: self.info,
-            3: self.delete_account,
-            4: self.quit
+            4: self.delete_account,
+            5: self.quit
         }
+
+
+    def run(self):
+        print("Welcome to Console-Blackjack-21.")
+
+        while True:
+            self.start_menu()
+            choice = self._menu_choice(1, 3)
+
+            action = self.login_options[choice]
+            action()
+
+
+            while True:
+                self.game_menu()
+                choice = self._menu_choice(1, 5)
+
+                if choice == 3:
+                    self._save()
+                    break
+
+                action = self.game_options[choice]
+                action()
 
 
     def start_menu(self):
@@ -39,6 +62,25 @@ class Menu:
         4. Delete account
         5. Quit
         """)
+
+
+    def _menu_choice(self, min, max):
+        while True:
+            try:
+                choice = int(input("$ "))
+
+                if choice < min or choice > max:
+                    raise ValueError
+                if not isinstance(int, choice):
+                    raise TypeError
+            except ValueError:
+                print("Your choice must be between {0} and {1}.".format(min, max))
+            except TypeError:
+                print("Your choice must be an integer.")
+            except Exception:
+                print("Something went wrong.")
+            else:
+                return choice
 
 
     def quit(self):
@@ -73,8 +115,12 @@ class Menu:
 
 
     def delete_account(self):
-        DeleteAccount().delete_acc(self.BJ.player.username)
+        Account().delete_acc(self.BJ.player.username)
 
     
     def sign_in(self):
         self.BJ.player = SignIn().make_sign_in()
+
+
+def _save(self):
+    pass

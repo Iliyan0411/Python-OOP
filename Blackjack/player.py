@@ -14,3 +14,4 @@ class Player:
         print("Age: {}".format(self.age))
         print("Games: {}".format(self.games))
         print("Wins: {}".format(self.wins))
+        

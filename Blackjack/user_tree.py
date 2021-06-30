@@ -29,14 +29,3 @@ class UserTree:
             return
 
         self._add(curr_node.children[name[i]], i+1, user)
-
-
-    def print(self):
-        self._print(self.root)
-
-    def _print(self, curr_node: Node):
-        if curr_node.data != None:
-            print(curr_node.data.username)
-
-        for child in curr_node.children:
-            self._print(curr_node.children[child])
