@@ -34,7 +34,7 @@ class Verification:
 
 
 class Registration(Verification):
-    def create_registration(self):
+    def make_registration(self):
         username = super()._username_input()
         age = self._age_input()
         password = None
@@ -95,7 +95,6 @@ class WrongPassword(Exception):
 
 class SignIn(Verification):
     def make_sign_in(self):
-
         users_file = open("users.bin", "rb")
         us_tree = pickle.load(users_file)
         users_file.close()
@@ -117,13 +116,13 @@ class SignIn(Verification):
             else:
                 break
 
-        
         user = us_tree.locate(username)
+
         return user
 
 
-class Account:
-    def delete_acc(self, username):
+class Account(Registration, SignIn):
+    def delete(self, username):
         users_file = open("users.bin", "rb")
         us_tree = pickle.load(users_file)
         users_file.close()
@@ -135,6 +134,6 @@ class Account:
         users_file.close()
 
 
-    def save_acc(self):
+    def save(self):
         pass
     

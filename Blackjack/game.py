@@ -10,7 +10,7 @@ class Blackjack:
         self.draw_count = 0
 
 
-    def __make_choice(self):
+    def _make_choice(self):
         while True:
             try:
                 choice = int(input("$ "))
@@ -29,7 +29,7 @@ class Blackjack:
         print("# [2] Stop draw")
 
         while True:
-            choice = self.__make_choice()
+            choice = self._make_choice()
 
             if choice == 1:
                 card = self.deck.draw()

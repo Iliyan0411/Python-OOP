@@ -27,3 +27,47 @@ class UserTree:
             return
 
         self._add(curr_node.children[name[i]], i+1, user)
+
+
+    def exist(self, username, password):
+        curr_node = self.root
+
+        for s in username:
+            if not s in curr_node.children:
+                return False
+
+            curr_node = curr_node.children[s]
+
+        return curr_node.data != None and curr_node.data.password == password
+
+
+    def locate(self):
+        pass
+
+
+    def remove(self):
+        pass
+
+
+
+# tree = UserTree()
+# tree.add(Player("Iliyan", 20, "shfdt"))
+# tree.add(Player("Spasi", 20, "shfdt"))
+# tree.add(Player("Aneta", 20, "shfdt"))
+# tree.add(Player("Dimitar", 20, "shfdt"))
+# tree.add(Player("Kiril", 20, "shfdt"))
+# tree.add(Player("Mihail", 20, "shfdt"))
+
+# print(tree.exist("Iliyan", "shfdt"))
+# print(tree.exist("Spasi", "shfdt"))
+# print(tree.exist("Aneta", "shfdt"))
+# print(tree.exist("Dimitar", "shfdt"))
+# print(tree.exist("Kiril", "shfdt"))
+# print(tree.exist("Mihail", "shfdt"))
+
+# print(tree.exist("Asen", "shfdt"))
+# print(tree.exist("Il", "shfdt"))
+# print(tree.exist("yan", "shfdt"))
+# print(tree.exist(" ", "shfdt"))
+# print(tree.exist("", "shfdt"))
+# print(tree.exist("Mihail", "wrong"))
