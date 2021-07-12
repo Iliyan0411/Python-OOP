@@ -122,7 +122,7 @@ class SignIn(Verification):
         return user
 
 
-class DeleteAccount:
+class Account:
     def delete_acc(self, username):
         users_file = open("users.bin", "rb")
         us_tree = pickle.load(users_file)
@@ -133,3 +133,8 @@ class DeleteAccount:
         users_file = open("users.bin", "wb")
         pickle.dump(us_tree, users_file)
         users_file.close()
+
+
+    def save_acc(self):
+        pass
+    

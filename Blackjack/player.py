@@ -4,6 +4,7 @@ class Player:
         self.username = username
         self.age = age
         self.wins = 0
+        self.password = password
         self.games = 0
         self.points = 0
 
@@ -13,3 +14,4 @@ class Player:
         print("Age: {}".format(self.age))
         print("Games: {}".format(self.games))
         print("Wins: {}".format(self.wins))
+        

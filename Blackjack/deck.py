@@ -34,7 +34,7 @@ class Deck:
 
     
     def stir(self):
-        stirs = int(len(self.cards) / 2)
+        stirs = int(len(self.cards))
         bottom = len(self.cards)
         
         for _ in range(stirs):
@@ -50,12 +50,12 @@ class BuildDeck:
     def create_deck(self, decks=1):
         deck = []
         for _ in range(decks):
-            deck += self.__default_deck() 
+            deck += self._default_deck() 
 
         return deck
 
 
-    def __default_deck(self):
+    def _default_deck(self):
         deck = []
 
         for i in range(13):
