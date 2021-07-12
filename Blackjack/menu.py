@@ -18,6 +18,7 @@ class Menu:
         self.game_options = {
             1: self._play,
             2: self._info,
+            3: self._sign_out,
             4: self._delete_account,
             5: self._quit
         }
@@ -37,12 +38,11 @@ class Menu:
                 self._game_menu()
                 choice = self._menu_choice(1, 5)
 
-                if choice == 3:
-                    Account.save()
-                    break
-
                 action = self.game_options[choice]
                 action()
+
+                if choice == 3 or choice == 4:
+                    break
 
 
     def _start_menu(self):
@@ -82,6 +82,14 @@ class Menu:
                 return choice
 
 
+    def _registration(self):
+        self.BJ.player = Account().make_registration()
+
+
+    def _sign_in(self):
+        self.BJ.player = Account().make_sign_in()
+
+
     def _quit(self):
         print("Thank you for playing Blackjack!")
         Account.save()
@@ -89,10 +97,6 @@ class Menu:
         exit(0)
 
 
-    def _info(self):
-        self.BJ.player.print()
-
-    
     def _play(self):
         while True:
             try:
@@ -107,16 +111,18 @@ class Menu:
                 self.BJ.deck = BuildDeck().create_deck(deck_num)
                 break
 
-        self.BJ.action()
+        self.BJ.play()
 
 
-    def _registration(self):
-        self.BJ.player = Account().make_registration()
+    def _info(self):
+        self.BJ.player.print()
+
+
+    def _sign_out(self):
+        Account().save(self.BJ.player)
 
 
     def _delete_account(self):
         Account().delete(self.BJ.player.username)
 
     
-    def _sign_in(self):
-        self.BJ.player = Account().make_sign_in()

@@ -29,25 +29,46 @@ class UserTree:
         self._add(curr_node.children[name[i]], i+1, user)
 
 
-    def exist(self, username, password):
+    def locate(self, username):
         curr_node = self.root
 
         for s in username:
             if not s in curr_node.children:
-                return False
-
+                return None
             curr_node = curr_node.children[s]
 
-        return curr_node.data != None and curr_node.data.password == password
+        return curr_node.data
+    
+    
+    def exist(self, username, password):
+        temp = self.locate(username)
+        return temp != None and temp.password == password 
 
 
-    def locate(self):
-        pass
+    def remove(self, username):
+        curr_node = self.root
+
+        last = len(username)-1
+        for i in range(0, last):
+            curr_node = curr_node.children[username[i]]
+        
+        if len(curr_node.children[username[last]].children) == 0:
+            curr_node.children.pop(username[last])
+        else:
+            curr_node.children[username[last]].data = None
 
 
-    def remove(self):
-        pass
 
+    # def print(self):
+    #     self._print(self.root)
+
+
+    # def _print(self, curr_node: Node):
+    #     if curr_node.data != None:
+    #         print(curr_node.data.username)
+
+    #     for child in curr_node.children:
+    #         self._print(curr_node.children[child])
 
 
 # tree = UserTree()
@@ -71,3 +92,8 @@ class UserTree:
 # print(tree.exist(" ", "shfdt"))
 # print(tree.exist("", "shfdt"))
 # print(tree.exist("Mihail", "wrong"))
+
+
+# tree.remove("Kiril")
+# tree.remove("Iliyan")
+# tree.print()

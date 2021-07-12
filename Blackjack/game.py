@@ -24,7 +24,7 @@ class Blackjack:
                 return choice
 
 
-    def action(self):
+    def play(self):
         print("# [1] Draw card")
         print("# [2] Stop draw")
 

@@ -106,9 +106,9 @@ class SignIn(Verification):
 
                 corr_usr, corr_pwd = us_tree.exist(username, password)
                 if corr_usr == False:
-                    raise WrongUsername("Wrong username.")
+                    raise WrongUsername
                 if corr_pwd == False:
-                    raise WrongPassword("Wrong password.")
+                    raise WrongPassword
             except WrongUsername:
                 print("Please, enter correct username.")
             except WrongPassword:
@@ -124,16 +124,24 @@ class SignIn(Verification):
 class Account(Registration, SignIn):
     def delete(self, username):
         users_file = open("users.bin", "rb")
-        us_tree = pickle.load(users_file)
+        users_tree = pickle.load(users_file)
         users_file.close()
 
-        us_tree.remove(username)
+        users_tree.remove(username)
 
         users_file = open("users.bin", "wb")
-        pickle.dump(us_tree, users_file)
+        pickle.dump(users_tree, users_file)
         users_file.close()
 
 
-    def save(self):
-        pass
+    def save(self, user: Player):
+        users_file = open("users.bin", "rb")
+        users_tree = pickle.load(users_file)
+        users_file.close()
+
+        users_tree.save(user)
+
+        users_file = open("users.bin", "wb")
+        pickle.dump(users_tree, users_file)
+        users_file.close()
     
