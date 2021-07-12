@@ -4,7 +4,6 @@ from player import Player
 class Node:
     def __init__(self):
         self.data = None
-        self.end_of_word = False
         self.children = {}
         
 
@@ -24,39 +23,48 @@ class UserTree:
             curr_node.children[name[i]] = Node()
         
         if i == len(name) - 1:
-            curr_node.children[name[i]].end_of_word = True
             curr_node.children[name[i]].data = user
             return
 
         self._add(curr_node.children[name[i]], i+1, user)
 
 
-    def print(self):
-        self._print(self.root)
+    # def viz(self):
+    #     viz_file = open("viz.dot", "w")
+    #     viz_file.write("digraph G\n{\n")
 
-    def _print(self, curr_node: Node):
-        if curr_node.data != None:
-            print(curr_node.data.username)
+    #     self._viz(self.root, viz_file)
 
-        for child in curr_node.children:
-            self._print(curr_node.children[child])
+    #     viz_file.write("\n}")
+    #     viz_file.close()
+
+    # def _viz(self, curr_node: Node, viz_file):
+    #     for child in curr_node.children:
+    #         viz_file.write('{0}[label="{1}"]\n'.format(id(curr_node), curr_node.key))
+    #         viz_file.write('{0}[label="{1}"\n]'.format(id(curr_node.children[child]), curr_node.children[child].key))
+    #         viz_file.write("{0}->{1}\n".format(id(curr_node), id(curr_node.children[child])))
+
+    #     for child in curr_node.children:
+    #         self._viz(curr_node.children[child], viz_file)
 
 
 
-# p1 = Player("Iliyan", 20, "dth")
-# p2 = Player("Ivan", 20, "dth")
-# p3 = Player("Niki", 20, "dth")
-# p4 = Player("Spasi", 20, "dth")
-# p5 = Player("Lusi", 20, "dth")
-# p6 = Player("Asen", 20, "dth")
+p1 = Player("Iliyan", 20, "dth")
+p2 = Player("Ivan", 20, "dth")
+p3 = Player("Niki", 20, "dth")
+p4 = Player("Spasi", 20, "dth")
+p5 = Player("Lusi", 20, "dth")
+p6 = Player("Asen", 20, "dth")
+p7 = Player("Spasimira", 20, "dth")
 
-# ut = UserTree()
+ut = UserTree()
 
-# ut.add(p1)
-# ut.add(p2)
-# ut.add(p3)
-# ut.add(p4)
-# ut.add(p5)
-# ut.add(p6)
+ut.add(p1)
+ut.add(p2)
+ut.add(p3)
+ut.add(p4)
+ut.add(p5)
+ut.add(p6)
+ut.add(p7)
 
-# ut.print()
+ut.viz()
