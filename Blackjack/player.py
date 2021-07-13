@@ -1,4 +1,4 @@
-
+# Name of Player class should be changed to User and User class must inherit Account class
 class Player:
     def __init__(self, username, age, password):
         self.username = username

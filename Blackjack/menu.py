@@ -8,7 +8,8 @@ from time import sleep
 
 class Menu:
     def __init__(self):
-        self.BJ = Blackjack(None, None)
+        self.BJ = Blackjack(None)
+        # Must add User here.
 
         self.login_options = {
             1: self._registration,
@@ -83,11 +84,11 @@ class Menu:
 
 
     def _registration(self):
-        self.BJ.player = Account().make_registration()
+        self.BJ.player = Account().make_registration() # There must be make changes.
 
 
     def _sign_in(self):
-        self.BJ.player = Account().make_sign_in()
+        self.BJ.player = Account().make_sign_in() # There must be make changes.
 
 
     def _quit(self):
@@ -102,27 +103,27 @@ class Menu:
             try:
                 deck_num = int(input("Select number of decks[1-6]: "))
                 if deck_num < 1 or deck_num > 6:
-                    raise ValueError("Invalid number of decks.")
+                    raise ValueError
             except ValueError:
                 print("Numbers of decks must be between 1 and 6.")
             except Exception:
                 print("Something went wrong.")
             else:
-                self.BJ.deck = BuildDeck().create_deck(deck_num)
+                self.BJ.deck = Deck(BuildDeck().create_deck(deck_num))
                 break
 
         self.BJ.play()
 
 
     def _info(self):
-        self.BJ.player.print()
+        self.BJ.player.print() # There must be make changes.
 
 
     def _sign_out(self):
-        Account().save(self.BJ.player)
+        Account().save(self.BJ.player) # There must be make changes.
 
 
     def _delete_account(self):
-        Account().delete(self.BJ.player.username)
+        Account().delete(self.BJ.player.username) # There must be make changes.
 
     
