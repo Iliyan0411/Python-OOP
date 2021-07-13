@@ -58,6 +58,9 @@ class UserTree:
             curr_node.children[username[last]].data = None
 
 
+    def save(self, user: Player):
+        pass
+
 
     # def print(self):
     #     self._print(self.root)
