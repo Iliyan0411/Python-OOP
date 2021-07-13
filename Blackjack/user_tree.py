@@ -57,6 +57,9 @@ class UserTree:
         else:
             curr_node.children[username[last]].data = None
 
+    def save(self, user): # important
+        pass
+
 
 
     # def print(self):
