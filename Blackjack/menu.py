@@ -11,6 +11,7 @@ class Menu:
     def __init__(self):
         self.BJ = Blackjack(None)
         self.player = Player(None, None, None)
+        self.quit_without_save = False
 
         self.login_options = {
             1: self._registration,
@@ -83,17 +84,22 @@ class Menu:
 
 
     def _registration(self):
+        self.quit_without_save = False
         self.player = Account().make_registration()
 
 
     def _sign_in(self):
+        self.quit_without_save = False
         self.player = Account().make_sign_in()
 
 
     def _quit(self):
         print("\nThank you for playing Blackjack!")
-        Account().save(self.player)
-        sleep(1)
+        
+        if self.quit_without_save == False:
+            Account().save(self.player)
+        
+        sleep(0.5)
         exit(0)
 
 
@@ -112,7 +118,10 @@ class Menu:
                 self.BJ.deck.stir()
                 break
 
-        self.BJ.play()
+        if self.BJ.play():
+            print("\nYou win.")
+        else:
+            print("\nYou lose.")
 
 
     def _info(self):
@@ -124,6 +133,7 @@ class Menu:
 
 
     def _delete_account(self):
+        self.quit_without_save = True
         Account().delete(self.player.username)
 
     

@@ -45,7 +45,7 @@ class Blackjack:
                     player_points += card.value
 
                 card.print()
-                print("  -->  {0}".format(player_points))
+                print("  -->  Total: {0}".format(player_points))
 
                 if player_points > 21:
                     player_points = 0
@@ -71,7 +71,7 @@ class Blackjack:
                 dealer_points += card.value
 
             card.print()
-            print("  -->  {0}".format(dealer_points))
+            print("  -->  Total: {0}".format(dealer_points))
 
             if dealer_points > 21:
                 return True

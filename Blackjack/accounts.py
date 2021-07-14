@@ -36,19 +36,7 @@ class Verification:
 
 class Registration(Verification):
     def make_registration(self):
-        username = super()._username_input()
-        age = self._age_input()
-        password = None
-
-        while True:
-            password = super()._password_input()
-
-            if self._secured_password(password):
-                break
-
-        new_user = Player(username, age, password)
-        
-        user_tree = None
+        # user_tree = None
         if path.getsize("users.bin") == 0:
             user_tree = UserTree()
         else:
@@ -56,13 +44,30 @@ class Registration(Verification):
             user_tree = pickle.load(users_file)
             users_file.close()
 
-        user_tree.add(new_user)
+        while True:
+            try:
+                username = super()._username_input()
+                age = self._age_input()
 
-        users_file = open("users.bin", "wb")
-        pickle.dump(user_tree, users_file)
-        users_file.close()
+                while True:
+                    password = super()._password_input()
+                    if self._secured_password(password):
+                        break
+                
+                if user_tree.locate(username) != None:
+                    raise ValueError
+            except ValueError:
+                print("This nickname is already registered.")
+            else:
+                new_user = Player(username, age, password)
+            
+                user_tree.add(new_user)
 
-        return new_user
+                users_file = open("users.bin", "wb")
+                pickle.dump(user_tree, users_file)
+                users_file.close()
+
+                return new_user
 
 
     def _secured_password(self, password):
