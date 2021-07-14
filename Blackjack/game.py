@@ -22,11 +22,11 @@ class Blackjack:
                 return choice
 
 
-    def play(self):
-        player_points, dealer_points = 0, 0
-
+    def _player_turn(self):
+        player_points = 0
         print("# [1] Draw card")
-        print("# [2] Stop draw")
+        print("# [2] Stop draw\n")
+        print("# Your turn: \n")
 
         while True:
             choice = self._make_choice()
@@ -47,14 +47,16 @@ class Blackjack:
                 card.print()
                 print("  -->  Total: {0}".format(player_points))
 
-                if player_points > 21:
-                    player_points = 0
-                    return False
-                if player_points == 21:
-                    player_points = 0
-                    return True
+                if player_points == 21 or player_points > 21:
+                    return player_points
+
             else:
-                break
+                return player_points
+    
+
+    def _dealer_turn(self, player_points):
+        print("\n# Dealer turn: \n")
+        dealer_points = 0
 
         while dealer_points < player_points:
             card = self.deck.draw()
@@ -75,8 +77,15 @@ class Blackjack:
 
             if dealer_points > 21:
                 return True
-            if dealer_points > player_points:
-                return False
+            if dealer_points >= player_points:
+                return False 
 
 
-        return player_points > dealer_points
+    def play(self):
+        player_points = self._player_turn()
+        if player_points == 21:
+            return True
+        elif player_points > 21:
+            return False
+
+        return self._dealer_turn(player_points)

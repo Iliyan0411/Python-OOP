@@ -33,10 +33,8 @@ class Verification:
                 return password
 
 
-
 class Registration(Verification):
     def make_registration(self):
-        # user_tree = None
         if path.getsize("users.bin") == 0:
             user_tree = UserTree()
         else:

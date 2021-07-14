@@ -3,7 +3,6 @@ from deck import BuildDeck, Deck
 from game import Blackjack
 from accounts import Account
 from sys import exit
-from time import sleep
 from os import system
 
 
@@ -94,12 +93,11 @@ class Menu:
 
 
     def _quit(self):
-        print("\nThank you for playing Blackjack!")
+        print("\nThank you for playing Blackjack!\n")
         
         if self.quit_without_save == False:
             Account().save(self.player)
         
-        sleep(0.5)
         exit(0)
 
 
@@ -118,7 +116,9 @@ class Menu:
                 self.BJ.deck.stir()
                 break
 
+        self.player.games += 1
         if self.BJ.play():
+            self.player.wins += 1
             print("\nYou win.")
         else:
             print("\nYou lose.")
