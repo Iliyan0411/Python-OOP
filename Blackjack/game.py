@@ -1,4 +1,4 @@
-from deck import BuildDeck, Deck
+from deck import Deck
 from time import sleep
 
 
@@ -80,22 +80,3 @@ class Blackjack:
 
 
         return player_points > dealer_points
-
-
-
-# deck = Deck(BuildDeck().create_deck())
-# deck.stir()
-# BJ = Blackjack(deck)
-
-# wins, loses = 0, 0
-
-# for _ in range(15):
-#     if BJ.play():
-#         wins += 1
-#         print("You are winner!")
-#     else:
-#         loses += 1
-#         print("You are loser!")
-
-# print(f"Wins: {wins}")
-# print(f"Loses: {loses}")

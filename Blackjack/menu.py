@@ -4,12 +4,13 @@ from game import Blackjack
 from accounts import Account
 from sys import exit
 from time import sleep
+from os import system
 
 
 class Menu:
     def __init__(self):
         self.BJ = Blackjack(None)
-        # Must add User here.
+        self.player = Player(None, None, None)
 
         self.login_options = {
             1: self._registration,
@@ -26,12 +27,13 @@ class Menu:
 
 
     def run(self):
-        print("Welcome to Console-Blackjack-21.\n")
+        print("\n\t\t\t| Welcome to Console-Blackjack-21. |\n")
 
         while True:
             self._start_menu()
             choice = self._menu_choice(1, 3)
 
+            system('cls||clear')
             action = self.login_options[choice]
             action()
 
@@ -39,6 +41,7 @@ class Menu:
                 self._game_menu()
                 choice = self._menu_choice(1, 5)
 
+                system('cls||clear')
                 action = self.game_options[choice]
                 action()
 
@@ -71,12 +74,8 @@ class Menu:
 
                 if choice < min or choice > max:
                     raise ValueError
-                if not isinstance(int, choice):
-                    raise TypeError
             except ValueError:
                 print("Your choice must be between {0} and {1}.".format(min, max))
-            except TypeError:
-                print("Your choice must be an integer.")
             except Exception:
                 print("Something went wrong.")
             else:
@@ -84,16 +83,16 @@ class Menu:
 
 
     def _registration(self):
-        self.BJ.player = Account().make_registration() # There must be make changes.
+        self.player = Account().make_registration()
 
 
     def _sign_in(self):
-        self.BJ.player = Account().make_sign_in() # There must be make changes.
+        self.player = Account().make_sign_in()
 
 
     def _quit(self):
-        print("Thank you for playing Blackjack!")
-        Account.save()
+        print("\nThank you for playing Blackjack!")
+        Account().save(self.player)
         sleep(1)
         exit(0)
 
@@ -110,20 +109,24 @@ class Menu:
                 print("Something went wrong.")
             else:
                 self.BJ.deck = Deck(BuildDeck().create_deck(deck_num))
+                self.BJ.deck.stir()
                 break
 
         self.BJ.play()
 
 
     def _info(self):
-        self.BJ.player.print() # There must be make changes.
+        self.player.print()
 
 
     def _sign_out(self):
-        Account().save(self.BJ.player) # There must be make changes.
+        Account().save(self.player)
 
 
     def _delete_account(self):
-        Account().delete(self.BJ.player.username) # There must be make changes.
+        Account().delete(self.player.username)
 
     
+
+
+Menu().run()

@@ -1,5 +1,6 @@
 from user_tree import UserTree
 from player import Player
+from os import path
 import pickle
 
 
@@ -47,14 +48,18 @@ class Registration(Verification):
 
         new_user = Player(username, age, password)
         
-        users_file = open("users.bin", "rb")
-        us_tree = pickle.load(users_file)
-        users_file.close()
+        user_tree = None
+        if path.getsize("users.bin") == 0:
+            user_tree = UserTree()
+        else:
+            users_file = open("users.bin", "rb")
+            user_tree = pickle.load(users_file)
+            users_file.close()
 
-        us_tree.add(new_user)
+        user_tree.add(new_user)
 
         users_file = open("users.bin", "wb")
-        pickle.dump(us_tree, users_file)
+        pickle.dump(user_tree, users_file)
         users_file.close()
 
         return new_user
@@ -85,14 +90,6 @@ class Registration(Verification):
                 return age
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class WrongUsername(Exception):
-    pass
-class WrongPassword(Exception):
-    pass
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 class SignIn(Verification):
     def make_sign_in(self):
         users_file = open("users.bin", "rb")
@@ -104,21 +101,15 @@ class SignIn(Verification):
                 username = super()._username_input()
                 password = super()._password_input()
 
-                corr_usr, corr_pwd = us_tree.exist(username, password)
-                if corr_usr == False:
-                    raise WrongUsername
-                if corr_pwd == False:
-                    raise WrongPassword
-            except WrongUsername:
-                print("Please, enter correct username.")
-            except WrongPassword:
-                print("Please, enter correct password.")
+                located = us_tree.exist(username, password)
+                if located == False:
+                    raise ValueError
+            except ValueError:
+                print("Please, enter correct username and password.")
+            except Exception:
+                print("Something went wrong.")
             else:
-                break
-
-        user = us_tree.locate(username)
-
-        return user
+                return us_tree.locate(username)
 
 
 class Account(Registration, SignIn):
@@ -134,7 +125,7 @@ class Account(Registration, SignIn):
         users_file.close()
 
 
-    def save(self, user: Player):
+    def save(self, user):
         users_file = open("users.bin", "rb")
         users_tree = pickle.load(users_file)
         users_file.close()
