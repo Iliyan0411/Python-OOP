@@ -6,6 +6,13 @@ class Blackjack:
     def __init__(self, deck: Deck):
         self.deck = deck
         self.draw_count = 0
+        self.bet = 0
+
+
+    def restart(self):
+        self.deck = None
+        self.draw_count = 0
+        self.bet = 0
 
 
     def _make_choice(self):
