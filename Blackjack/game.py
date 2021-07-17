@@ -65,7 +65,7 @@ class Blackjack:
         print("\n# Dealer turn: \n")
         dealer_points = 0
 
-        while dealer_points < player_points:
+        while dealer_points <= player_points:
             card = self.deck.draw()
             sleep(0.5)
             
@@ -84,7 +84,7 @@ class Blackjack:
 
             if dealer_points > 21:
                 return True
-            if dealer_points >= player_points:
+            if dealer_points > player_points:
                 return False 
 
 
